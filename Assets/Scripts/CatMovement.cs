@@ -9,6 +9,10 @@ public class CatMovement : MonoBehaviour
     private bool isJumping = false; // ジャンプしているかどうか
     private Rigidbody rb;           // Rigidbodyコンポーネント
 
+    // 鳴く動作用
+    public float meowRadius = 2f; // 鳴き声の当たり判定の範囲
+    public LayerMask meowLayerMask; // 鳴き声が影響を与えるレイヤー
+
     // オブジェクトを持ち上げるための設定
     public Transform holdPoint;   // オブジェクトを持つ位置
     private GameObject pickedObject;  // 持ち上げたオブジェクト
@@ -33,6 +37,12 @@ public class CatMovement : MonoBehaviour
             isJumping = true;
         }
 
+        // 鳴く処理
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Meow();
+        }
+
         // オブジェクトを持ち上げる・放す処理
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -53,6 +63,35 @@ public class CatMovement : MonoBehaviour
                 DropObject();
             }
         }
+    }
+
+    // 鳴き処理
+    private void Meow()
+    {
+        Debug.Log("猫が鳴いた！");
+
+        // 鳴き声の当たり判定を発生させる (SphereCastで範囲を指定)
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
+        // 範囲内のオブジェクトをハイライト
+        foreach (Collider hitCollider in hitColliders)
+        {
+            Renderer objRenderer = hitCollider.GetComponent<Renderer>();
+            if (objRenderer != null)
+            {
+                // オブジェクトの色を赤く変更してハイライト
+                objRenderer.material.color = Color.red;
+
+                // 一定時間後に色を元に戻すコルーチンを開始
+                StartCoroutine(ResetColor(objRenderer));
+            }
+        }
+    }
+
+    // 色を元に戻す処理 (コルーチン)
+    private IEnumerator ResetColor(Renderer objRenderer)
+    {
+        yield return new WaitForSeconds(1f); // 1秒後に色を元に戻す
+        objRenderer.material.color = Color.white; // 元の色に戻す
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -100,5 +139,12 @@ public class CatMovement : MonoBehaviour
             pickedObject.transform.parent = null;
             pickedObject = null;
         }
+    }
+
+    // Gizmosで鳴き声の範囲を視覚的に表示
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, meowRadius);
     }
 }
