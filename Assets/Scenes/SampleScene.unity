@@ -377,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218679279}
   m_LocalRotation: {x: -0, y: -0.72199386, z: -0, w: 0.6918995}
-  m_LocalPosition: {x: -56.1, y: 10.3, z: -12}
+  m_LocalPosition: {x: -62, y: 10.3, z: -12.3}
   m_LocalScale: {x: 10.324844, y: 12.07628, z: 5.8056}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1183,7 +1183,6 @@ GameObject:
   - component: {fileID: 1788508787}
   - component: {fileID: 1788508786}
   - component: {fileID: 1788508785}
-  - component: {fileID: 1788508784}
   m_Layer: 0
   m_Name: SmokeSystem
   m_TagString: Untagged
@@ -1191,20 +1190,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1788508784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788508783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7149ffc3bdb10394fa682fca1359fa08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engineRevs: 5
-  exhaustRate: 5
 --- !u!199 &1788508785
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5985,7 +5970,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788508783}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -36.7, y: 20.1, z: -43.7}
+  m_LocalPosition: {x: -43.09, y: 20.88, z: -44.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
