@@ -105,6 +105,7 @@ public class CatMovement : MonoBehaviour
         {
             isJumping = false;
         }
+
     }
 
     // オブジェクトを持ち上げる処理
