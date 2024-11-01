@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;  // シーン管理に必要
+using System.Collections;
+using System.Collections.Generic;
 
 public class TitleScene : MonoBehaviour
 {
