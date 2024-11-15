@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Pickupable
+  - holdPoint
+  - Water
   layers:
   - Default
   - TransparentFX
