@@ -19,7 +19,6 @@ public class WallController : MonoBehaviour
     {
         if(isRising)
         {
-            Debug.Log("Rising wall. Current height: " + transform.position.y);
             // 壁が指定された高さに達するまで上昇する
             if (transform.position.y < targetHeight)
             {
@@ -30,7 +29,6 @@ public class WallController : MonoBehaviour
 
     public void StartRising()
     {
-        Debug.Log("Wall is rising");
         isRising = true;// 上昇を開始するフラグを立てる
     }
 }
