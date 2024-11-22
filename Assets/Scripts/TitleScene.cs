@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;  // シーン管理に必要
 using System.Collections;
-using System.Collections.Generic;
 
 public class TitleScene : MonoBehaviour
 {
@@ -10,10 +9,17 @@ public class TitleScene : MonoBehaviour
 
     void Update()
     {
-        // SPACEキーが押されたときに指定のシーンに移動する
+        // SPACEキーが押されたときに1.5秒後に指定のシーンに移動する
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(sceneName);
+            StartCoroutine(LoadSceneAfterDelay(0.7f));
         }
+    }
+
+    // シーンを遅延してロードするコルーチン
+    IEnumerator LoadSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
     }
 }
