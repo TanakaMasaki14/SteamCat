@@ -8,6 +8,7 @@ public class CatMovement : MonoBehaviour
     public float jumpForce = 0f;   // ジャンプ力
     private bool isJumping = false; // ジャンプしているかどうか
     private Rigidbody rb;           // Rigidbodyコンポーネント
+    private bool isFacingRight = true; // 現在右向きかどうか
 
     // 鳴く動作用
     public float meowRadius = 2f; // 鳴き声の当たり判定の範囲
@@ -29,6 +30,16 @@ public class CatMovement : MonoBehaviour
         Vector3 move = new Vector3(rb.velocity.x, rb.velocity.y, moveInput * moveSpeed);  // Z軸に移動
 
         rb.velocity = move;
+
+        // 回転の処理を追加
+        if (moveInput < 0 && isFacingRight)
+        {
+            Flip();
+        }
+        else if (moveInput > 0 && !isFacingRight)
+        {
+            Flip();
+        }
 
         // ジャンプ処理
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -63,6 +74,13 @@ public class CatMovement : MonoBehaviour
                 DropObject();
             }
         }
+    }
+    private void Flip()
+    {
+        // 左右反転するためにY軸方向に回転
+        isFacingRight = !isFacingRight;
+        float rotationY = isFacingRight ? 0 : 180;
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 
     // 鳴き処理
