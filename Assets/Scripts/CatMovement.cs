@@ -86,7 +86,6 @@ public class CatMovement : MonoBehaviour
     // 鳴き処理
     private void Meow()
     {
-        Debug.Log("猫が鳴いた！");
 
         // 鳴き声の当たり判定を発生させる (SphereCastで範囲を指定)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
@@ -96,20 +95,14 @@ public class CatMovement : MonoBehaviour
             Renderer objRenderer = hitCollider.GetComponent<Renderer>();
             if (objRenderer != null)
             {
-                // オブジェクトの色を赤く変更してハイライト
-                objRenderer.material.color = Color.red;
-
-                // 一定時間後に色を元に戻すコルーチンを開始
-                StartCoroutine(ResetColor(objRenderer));
+                // 動くオブジェクトを動かす処理を追加
+                MeowMove moveableObject = hitCollider.GetComponent<MeowMove>();
+                if (moveableObject != null)
+                {
+                    moveableObject.MoveUpAndDown();
+                }
             }
         }
-    }
-
-    // 色を元に戻す処理 (コルーチン)
-    private IEnumerator ResetColor(Renderer objRenderer)
-    {
-        yield return new WaitForSeconds(1f); // 1秒後に色を元に戻す
-        objRenderer.material.color = Color.white; // 元の色に戻す
     }
 
     private void OnCollisionEnter(Collision collision)
