@@ -10,19 +10,21 @@ public class MovingPlatform : MonoBehaviour
     private bool movingToB = true;
 
     // プレイヤーを乗せるために、トリガーコライダーで接触を検知する
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            other.transform.SetParent(transform); // プレイヤーを床の子に設定
+            Debug.Log("Player landed on platform"); // ログ追加
+            collision.transform.SetParent(transform); // プレイヤーを床の子に設定
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            other.transform.SetParent(null); // プレイヤーを親子関係から外す
+            Debug.Log("Player left platform"); // ログ追加
+            collision.transform.SetParent(null); // プレイヤーを親子関係から外す
         }
     }
 

@@ -18,6 +18,8 @@ public class CatMovement : MonoBehaviour
     public Transform holdPoint;   // �I�u�W�F�N�g�����ʒu
     private GameObject pickedObject;  // �����グ���I�u�W�F�N�g
 
+    private bool isFacingRight = true;// 現在右向きかどうか
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();  // Rigidbody���擾
@@ -63,6 +65,16 @@ public class CatMovement : MonoBehaviour
                 DropObject();
             }
         }
+
+        // 回転の処理を追加(回転で左右の向きを変更)
+        if(moveInput < 0 && isFacingRight)
+        {
+            Flip();
+        }
+        else if(moveInput > 0 && !isFacingRight)
+        {
+            Flip();
+        }
     }
 
     // ������
@@ -85,6 +97,13 @@ public class CatMovement : MonoBehaviour
                 StartCoroutine(ResetColor(objRenderer));
             }
         }
+    }
+    private void Flip()
+    {
+        // 左右反転するためにY軸方向に回転
+        isFacingRight = !isFacingRight;
+        float rotationY = isFacingRight ? 0 : 180;
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 
     // �F�����ɖ߂����� (�R���[�`��)
