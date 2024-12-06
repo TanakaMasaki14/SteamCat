@@ -9,6 +9,7 @@ TagManager:
   - holdPoint
   - Water
   - Invizible
+  - ICE
   layers:
   - Default
   - TransparentFX
