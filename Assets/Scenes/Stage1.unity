@@ -604,7 +604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10667693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: -11.11}
+  m_LocalPosition: {x: 0, y: 2.3, z: -11.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6457,6 +6457,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 933f82faa46229745ac52e79ab3d26d0, type: 3}
   m_PrefabInstance: {fileID: 1592923250}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &116937829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac003ec3711bb414fb5dc9e5287d75ee, type: 3}
+  m_PrefabInstance: {fileID: 856682682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &117541023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cacd4f6fdb758294dad951718411189b, type: 3}
@@ -8210,6 +8215,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 10
+  meowRadius: 2
+  meowLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  holdPoint: {fileID: 116937829}
 --- !u!65 &311825055
 BoxCollider:
   m_ObjectHideFlags: 0
