@@ -16,7 +16,7 @@ public class Story : MonoBehaviour
                 objectToMove.position += moveOffset; // オブジェクトを移動
                 pressCount++; // 押下回数を増やす
 
-                if (pressCount >= 3) // 3回押されたらシーン遷移
+                if (pressCount >= 4) // 4回押されたらシーン遷移
                 {
                     SceneManager.LoadScene("SampleScene"); // シーン名を変更
                 }
