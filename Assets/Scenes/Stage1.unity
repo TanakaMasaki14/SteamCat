@@ -623,10 +623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d776391378121224dbdeb004b45dad33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  pullDistance: 2
+  player: {fileID: 311825051}
+  pullDistance: 3
   pullKey: 101
-  pullSpeed: 2
+  pullSpeed: 6
   targetPosition: {fileID: 0}
 --- !u!4 &22332653 stripped
 Transform:
