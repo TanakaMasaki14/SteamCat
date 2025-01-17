@@ -627,6 +627,7 @@ MonoBehaviour:
   pullDistance: 3
   pullKey: 101
   pullSpeed: 6
+  correspondingwall: {fileID: 457721378}
   targetPosition: {fileID: 1305820199}
 --- !u!4 &22332653 stripped
 Transform:
@@ -15368,6 +15369,7 @@ GameObject:
   - component: {fileID: 457721376}
   - component: {fileID: 457721375}
   - component: {fileID: 457721374}
+  - component: {fileID: 457721378}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -15451,6 +15453,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 108
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &457721378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457721373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d1c2d901875234d9975790dd2a7feb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  riseSpeed: 2
+  targetHeight: 10
 --- !u!4 &462679381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 933f82faa46229745ac52e79ab3d26d0, type: 3}
@@ -33770,7 +33786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac003ec3711bb414fb5dc9e5287d75ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.806
+      value: -0.61
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac003ec3711bb414fb5dc9e5287d75ee, type: 3}
       propertyPath: m_LocalPosition.z

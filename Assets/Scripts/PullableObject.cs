@@ -8,7 +8,7 @@ public class PullableObject : MonoBehaviour
     public float pullDistance = 2f;// 引っ張る距離
     public KeyCode pullKey = KeyCode.E;// アクションキー
     public float pullSpeed = 2f;// 引っ張る速度
-    //public WallController correspondingwall;// 上昇させる壁のコントローラー
+    public WallController correspondingwall;// 上昇させる壁のコントローラー
     public Transform targetPosition;// 引っ張るべき目標地点
     private bool isPulling = false;// 現在引っ張っているか
     private Rigidbody rb;
@@ -42,7 +42,7 @@ public class PullableObject : MonoBehaviour
         // オブジェクトが指定された位置に到達し、壁がまだ上昇していない場合
         if (!wallTriggered && Vector3.Distance(transform.position, targetPosition.position) < 1.0f)
         {
-            //correspondingwall.StartRising();// 壁を上昇させる
+            correspondingwall.StartRising();// 壁を上昇させる
             wallTriggered = true;// 壁がすでに上昇した
             isPulling = false;// 引っ張り動作を停止
             reachedTarget = true;// 目標地点に到達したことを記録
