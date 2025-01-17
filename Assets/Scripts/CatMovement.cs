@@ -16,7 +16,7 @@ public class CatMovement : MonoBehaviour
 
     // 
     public Transform holdPoint;   // 
-    private GameObject pickedObject;  // 
+    private GameObject pickedObject;  //
 
     private bool isFacingRight = true;// åªç›âEå¸Ç´Ç©Ç«Ç§Ç©
 
@@ -84,7 +84,7 @@ public class CatMovement : MonoBehaviour
 
         // 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
-        //
+        // 
         foreach (Collider hitCollider in hitColliders)
         {
             Renderer objRenderer = hitCollider.GetComponent<Renderer>();
@@ -136,7 +136,7 @@ public class CatMovement : MonoBehaviour
         Rigidbody objRb = pickedObject.GetComponent<Rigidbody>();
         if (objRb != null)
         {
-            objRb.isKinematic = true; // 
+            objRb.isKinematic = true; //
         }
 
         // 
