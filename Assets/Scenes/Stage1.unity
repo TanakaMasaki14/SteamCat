@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 10667694}
   - component: {fileID: 10667699}
   m_Layer: 0
-  m_Name: Pickupable
+  m_Name: PullCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
