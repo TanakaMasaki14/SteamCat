@@ -19,7 +19,7 @@ public class Story : MonoBehaviour
 
                 if (pressCount >= 4) // 4回押されたらシーン遷移
                 {
-                    SceneManager.LoadScene("SampleScene"); // シーン名を変更
+                    SceneManager.LoadScene("Stage1"); // シーン名を変更
                 }
             }
         }
