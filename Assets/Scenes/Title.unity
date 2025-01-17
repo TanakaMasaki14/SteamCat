@@ -1872,6 +1872,7 @@ GameObject:
   - component: {fileID: 1633539095}
   - component: {fileID: 1633539094}
   - component: {fileID: 1633539097}
+  - component: {fileID: 1633539098}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1957,6 +1958,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Story
+--- !u!114 &1633539098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633539093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91457621d0af748059f9b09bf41768f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionKitCamera: {fileID: 1633539095}
+  material: {fileID: 0}
+  useUnscaledDeltaTime: 0
 --- !u!1 &1643722514
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,25 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;  // シーン管理に必要
 using System.Collections;
+using Prime31.TransitionKit;
 
 public class TitleScene : MonoBehaviour
 {
-    // シーンの名前を指定する
-    public string sceneName = "";
+    public string sceneName = "Story"; // Inspectorで設定
 
     void Update()
     {
-        // SPACEキーが押されたときに1.5秒後に指定のシーンに移動する
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(LoadSceneAfterDelay(0.7f));
+            StartCoroutine(TransitionWithWind(0.7f)); // 遷移を開始
         }
     }
 
-    // シーンを遅延してロードするコルーチン
-    IEnumerator LoadSceneAfterDelay(float delay)
+    IEnumerator TransitionWithWind(float delay)
     {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(sceneName);
+        // WindTransition の設定
+        var wind = new WindTransition()
+        {
+            nextScene = sceneName == "Story" ? (SceneManager.GetActiveScene().buildIndex == 1 ? 2 : 1) : SceneManager.GetSceneByName(sceneName).buildIndex,
+            duration = 1.0f, // 演出の時間
+            size = 0.3f // 風の効果のサイズ
+        };
+
+        TransitionKit.instance.transitionWithDelegate(wind); // WindTransition を実行
+
+        yield return new WaitForSeconds(delay); // 指定時間だけ待機
+        SceneManager.LoadScene(wind.nextScene); // 次のシーンに移動
     }
 }

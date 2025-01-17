@@ -6,6 +6,7 @@ public class Story : MonoBehaviour
     public Transform objectToMove; // Inspectorで設定する
     public Vector3 moveOffset = new Vector3(0, 0, 0); // 移動量
     private int pressCount = 0; // スペースキー押下回数
+   
 
     void Update()
     {
