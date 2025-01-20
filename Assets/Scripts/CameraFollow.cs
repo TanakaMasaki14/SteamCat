@@ -6,13 +6,12 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform player;    // プレイヤーのTransform
     public Vector3 offset;      // プレイヤーとの距離（オフセット）
-    public float fixedYPosition = 0f;  // カメラの固定Y位置
-    public float smoothSpeed = 0f;  // カメラの追尾のスムーズさ
+    public float smoothSpeed = 0.125f;  // カメラの追尾のスムーズさ
 
     void LateUpdate()
     {
-        // プレイヤーのXおよびZの位置にオフセットを加えて、Yを固定した位置を設定
-        Vector3 desiredPosition = new Vector3(player.position.x + offset.x, fixedYPosition, player.position.z + offset.z);
+        // プレイヤーの位置にオフセットを加えた目標位置を計算
+        Vector3 desiredPosition = player.position + offset;
 
         // スムーズにカメラを追尾
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
