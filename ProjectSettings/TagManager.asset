@@ -8,6 +8,9 @@ TagManager:
   - Pickupable
   - Trigger
   - Ice
+  - Invizible
+  - Invizible2
+  - Pickupable2
   layers:
   - Default
   - TransparentFX

@@ -58,6 +58,11 @@ public class CatMovement : MonoBehaviour
                     {
                         PickupObject(hit.collider.gameObject);
                     }
+
+                    if (hit.collider.CompareTag("Pickupable2"))
+                    {
+                        PickupObject(hit.collider.gameObject);
+                    }
                 }
             }
             else // 
@@ -121,6 +126,11 @@ public class CatMovement : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Pickupable"))
+        {
+            isJumping = false;
+        }
+
+        if (collision.gameObject.CompareTag("Pickupable2"))
         {
             isJumping = false;
         }
