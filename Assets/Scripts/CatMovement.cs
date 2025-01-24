@@ -10,9 +10,6 @@ public class CatMovement : MonoBehaviour
     private Rigidbody rb;           // Rigidbody�R���|�[�l���g
     private bool isFacingRight = true; // ���݉E�������ǂ���
 
-    private bool isJumping = false; // �W�����v���Ă��邩�ǂ���
-    private Rigidbody rb;           // Rigidbody�R���|�[�l���g
-
     // ������p
     public float meowRadius = 2f; // �����̓����蔻��͈̔�
     public LayerMask meowLayerMask; // �������e����^���郌�C���[
@@ -20,8 +17,6 @@ public class CatMovement : MonoBehaviour
     // �I�u�W�F�N�g�������グ�邽�߂̐ݒ�
     public Transform holdPoint;   // �I�u�W�F�N�g�����ʒu
     private GameObject pickedObject;  // �����グ���I�u�W�F�N�g
-
-    private bool isFacingRight = true;// 現在右向きかどうか
 
     private Animator animator; // Animatorをanimatorという変数で定義する
 
@@ -146,13 +141,6 @@ public class CatMovement : MonoBehaviour
             }
         }
     }
-    private void Flip()
-    {
-        // 左右反転するためにY軸方向に回転
-        isFacingRight = !isFacingRight;
-        float rotationY = isFacingRight ? 0 : 180;
-        transform.rotation = Quaternion.Euler(0, rotationY, 0);
-    }
 
     // �F�����ɖ߂����� (�R���[�`��)
     private IEnumerator ResetColor(Renderer objRenderer)
@@ -218,6 +206,4 @@ public class CatMovement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, meowRadius);
     }
-}
-
 }
