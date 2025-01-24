@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;    // ƒvƒŒƒCƒ„[‚ÌTransform
-    public Vector3 offset;      // ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£iƒIƒtƒZƒbƒgj
-    public float smoothSpeed = 0.125f;  // ƒJƒƒ‰‚Ì’Ç”ö‚ÌƒXƒ€[ƒY‚³i”CˆÓ‚ÌƒfƒtƒHƒ‹ƒg’lj
+    public Transform player;    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Transform
+    public Vector3 offset;      // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ‚Ì‹ï¿½ï¿½ï¿½ï¿½iï¿½Iï¿½tï¿½Zï¿½bï¿½gï¿½j
+    public float smoothSpeed = 0.125f;  // ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ì’Ç”ï¿½ï¿½ÌƒXï¿½ï¿½ï¿½[ï¿½Yï¿½ï¿½
 
     void LateUpdate()
     {
-        // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÉƒIƒtƒZƒbƒg‚ğ‰Á‚¦‚ÄAY²‚ğŒÅ’è‚µ‚È‚¢ˆÊ’u‚ğİ’è
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÊ’uï¿½ÉƒIï¿½tï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú•Wï¿½Ê’uï¿½ï¿½ï¿½vï¿½Z
         Vector3 desiredPosition = player.position + offset;
 
-        // ƒXƒ€[ƒY‚ÉƒJƒƒ‰‚ğ’Ç”ö
+        // ï¿½Xï¿½ï¿½ï¿½[ï¿½Yï¿½ÉƒJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç”ï¿½
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
-        // ƒvƒŒƒCƒ„[‚ğ’‹‚·‚é
-        transform.LookAt(player.position + Vector3.up * 2.0f);  // ‚‚³ƒIƒtƒZƒbƒg‚ğ2.0‚Éİ’èi’²®‰Âj
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ğ’ï¿½ï¿½ï¿½ï¿½ï¿½
+        transform.LookAt(player.position + Vector3.up * 2.0f);  // ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½tï¿½Zï¿½bï¿½gï¿½ï¿½2.0ï¿½Éİ’ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Âj
     }
 }

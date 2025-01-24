@@ -1,8 +1,20 @@
 fileFormatVersion: 2
-guid: 58bb2434a25002d4082ff8664b3e7e07
+guid: a23b26b7ab49dc246b80169500c81ec8
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1672901548665051942
+    second: "\u5E73\u9762|Action"
+  - first:
+      74: 6208452857820941202
+    second: "\u5E73\u9762|\u5E73\u9762Action"
+  - first:
+      74: 856175312351638885
+    second: "\u5E73\u9762|\u5E73\u9762Action.001"
+  - first:
+      74: -887117003265588186
+    second: "\u5E73\u9762|\u5E73\u9762Action.002"
   externalObjects: {}
   materials:
     materialImportMode: 2

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class WallController : MonoBehaviour
 {
-    public float riseSpeed = 2f;// •Ç‚Ìã¸‘¬“x
-    public float targetHeight = 5f;// •Ç‚ÌÅI“I‚È‚‚³
+    public float riseSpeed = 2f;// ï¿½Ç‚Ìã¸ï¿½ï¿½ï¿½x
+    public float targetHeight = 5f;// ï¿½Ç‚ÌÅIï¿½Iï¿½Èï¿½ï¿½ï¿½
     private bool isRising = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isRising)
+        if (isRising)
         {
-            // •Ç‚ªw’è‚³‚ê‚½‚‚³‚É’B‚·‚é‚Ü‚Åã¸‚·‚é
+            // ï¿½Ç‚ï¿½ï¿½wï¿½è‚³ï¿½ê‚½ï¿½ï¿½ï¿½ï¿½ï¿½É’Bï¿½ï¿½ï¿½ï¿½Ü‚Åã¸ï¿½ï¿½ï¿½ï¿½
             if (transform.position.y < targetHeight)
             {
                 transform.position += Vector3.up * riseSpeed * Time.deltaTime;
@@ -29,6 +29,6 @@ public class WallController : MonoBehaviour
 
     public void StartRising()
     {
-        isRising = true;// ã¸‚ğŠJn‚·‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        isRising = true;// ï¿½ã¸ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
     }
 }

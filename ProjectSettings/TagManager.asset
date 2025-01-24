@@ -6,9 +6,14 @@ TagManager:
   tags:
   - Ground
   - Pickupable
+  - Pickupable2
   - holdPoint
   - Water
   - Invizible
+  - Trigger
+  - Ice
+  - Invizible
+  - Invizible2
   layers:
   - Default
   - TransparentFX
