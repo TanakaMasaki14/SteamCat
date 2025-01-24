@@ -118,8 +118,6 @@ public class CatMovement : MonoBehaviour
     // 鳴き声
     private void Meow()
     {
-        Debug.Log("猫が鳴いた！");
-
         // 鳴き声の影響範囲を計算 (SphereCastで範囲を指定)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
         // 範囲内のオブジェクトをハイライト
@@ -134,11 +132,8 @@ public class CatMovement : MonoBehaviour
                 {
                     moveableObject.MoveUpAndDown();
                 }
-                // オブジェクトの色を赤に変更してハイライト
-                objRenderer.material.color = Color.red;
-
                 // 一定時間後に元の色に戻す
-                StartCoroutine(ResetColor(objRenderer));
+                //StartCoroutine(ResetColor(objRenderer));
             }
         }
     }
