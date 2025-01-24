@@ -4,34 +4,44 @@ using UnityEngine;
 
 public class CatMovement : MonoBehaviour
 {
-    public float moveSpeed = 0f;   // ˆÚ“®‘¬“x
-    public float jumpForce = 0f;   // ƒWƒƒƒ“ƒv—Í
-    private bool isJumping = false; // ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-    private Rigidbody rb;           // RigidbodyƒRƒ“ƒ|[ƒlƒ“ƒg
-    private bool isFacingRight = true; // Œ»İ‰EŒü‚«‚©‚Ç‚¤‚©
+    public float moveSpeed = 0f;   // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½x
+    public float jumpForce = 0f;   // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½
+    private bool isJumping = false; // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½
+    private Rigidbody rb;           // Rigidbodyï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½g
+    private bool isFacingRight = true; // ï¿½ï¿½ï¿½İ‰Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 
-    // –Â‚­“®ì—p
-    public float meowRadius = 2f; // –Â‚«º‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ
-    public LayerMask meowLayerMask; // –Â‚«º‚ª‰e‹¿‚ğ—^‚¦‚éƒŒƒCƒ„[
+    private bool isJumping = false; // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½
+    private Rigidbody rb;           // Rigidbodyï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½g
 
-    // ƒIƒuƒWƒFƒNƒg‚ğ‚¿ã‚°‚é‚½‚ß‚Ìİ’è
-    public Transform holdPoint;   // ƒIƒuƒWƒFƒNƒg‚ğ‚ÂˆÊ’u
-    private GameObject pickedObject;  // ‚¿ã‚°‚½ƒIƒuƒWƒFƒNƒg
+    // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½p
+    public float meowRadius = 2f; // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½Ì”Íˆï¿½
+    public LayerMask meowLayerMask; // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½éƒŒï¿½Cï¿½ï¿½ï¿½[
+
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½é‚½ï¿½ß‚Ìİ’ï¿½
+    public Transform holdPoint;   // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ÂˆÊ’u
+    private GameObject pickedObject;  // ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+
+    private bool isFacingRight = true;// ç¾åœ¨å³å‘ãã‹ã©ã†ã‹
+
+    private Animator animator; // Animatorã‚’animatorã¨ã„ã†å¤‰æ•°ã§å®šç¾©ã™ã‚‹
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();  // Rigidbody‚ğæ“¾
+        rb = GetComponent<Rigidbody>();  // Rigidbodyï¿½ï¿½ï¿½æ“¾
+        
+        // å¤‰æ•°walkAnimeã«ã€Animetorã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’è¨­å®šã™ã‚‹
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // ƒvƒŒƒCƒ„[‚ÌZ²ˆÚ“® (A‚ÆDƒL[‚Ü‚½‚Í¶E‰E–îˆóƒL[)
-        float moveInput = Input.GetAxis("Horizontal");  // "A"‚Æ"D"‚Ü‚½‚Í¶E‰EƒL[‚ÅˆÚ“®
-        Vector3 move = new Vector3(rb.velocity.x, rb.velocity.y, moveInput * moveSpeed);  // Z²‚ÉˆÚ“®
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Zï¿½ï¿½ï¿½Ú“ï¿½ (Aï¿½ï¿½Dï¿½Lï¿½[ï¿½Ü‚ï¿½ï¿½Íï¿½ï¿½Eï¿½Eï¿½ï¿½ï¿½Lï¿½[)
+        float moveInput = Input.GetAxis("Horizontal");  // "A"ï¿½ï¿½"D"ï¿½Ü‚ï¿½ï¿½Íï¿½ï¿½Eï¿½Eï¿½Lï¿½[ï¿½ÅˆÚ“ï¿½
+        Vector3 move = new Vector3(rb.velocity.x, rb.velocity.y, moveInput * moveSpeed);  // Zï¿½ï¿½ï¿½ÉˆÚ“ï¿½
 
         rb.velocity = move;
 
-        // ‰ñ“]‚Ìˆ—‚ğ’Ç‰Á
+        // ï¿½ï¿½]ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
         if (moveInput < 0 && isFacingRight)
         {
             Flip();
@@ -41,26 +51,30 @@ public class CatMovement : MonoBehaviour
             Flip();
         }
 
-        // ƒWƒƒƒ“ƒvˆ—
+        // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½
+        // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             rb.velocity = Vector3.up * jumpForce;
             isJumping = true;
+
+            // Boolå‹ã®Animatorã§ã‚ã‚‹Jampã‚’Trueã«ã™ã‚‹
+            animator.SetBool("Jamp", true);
         }
 
-        // –Â‚­ˆ—
+        // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Meow();
         }
 
-        // ƒIƒuƒWƒFƒNƒg‚ğ‚¿ã‚°‚éE•ú‚·ˆ—
+        // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (pickedObject == null) // ‰½‚à‚Á‚Ä‚¢‚È‚¢ê‡
+            if (pickedObject == null) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡
             {
                 RaycastHit hit;
-                // ƒvƒŒƒCƒ„[‚Ì‘O•û‚É‚ ‚éƒIƒuƒWƒFƒNƒg‚ğRaycast‚ÅŒŸo
+                // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‘Oï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½Raycastï¿½ÅŒï¿½ï¿½o
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
                 {
                     if (hit.collider.CompareTag("Pickupable"))
@@ -69,40 +83,82 @@ public class CatMovement : MonoBehaviour
                     }
                 }
             }
-            else // ‚·‚Å‚É‚Á‚Ä‚¢‚éê‡‚Í•ú‚·
+            else // ï¿½ï¿½ï¿½Å‚Éï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½Í•ï¿½ï¿½ï¿½
             {
                 DropObject();
             }
         }
+
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆ
+        if (moveInput != 0)
+        {
+            // Boolå‹ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã§ã‚ã‚‹Walkã‚’Trueã«ã™ã‚‹
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            // Boolå‹ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã§ã‚ã‚‹Walkã‚’Falseã«ã™ã‚‹
+            animator.SetBool("Walk", false);
+        }
+
+        // å›è»¢ã®å‡¦ç†ã‚’è¿½åŠ (å›è»¢ã§å·¦å³ã®å‘ãã‚’å¤‰æ›´)
+        if (moveInput < 0 && isFacingRight)
+        {
+            Flip();
+        }
+        else if(moveInput > 0 && !isFacingRight)
+        {
+            Flip();
+        }
     }
     private void Flip()
     {
-        // ¶‰E”½“]‚·‚é‚½‚ß‚ÉY²•ûŒü‚É‰ñ“]
+        // ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½é‚½ï¿½ß‚ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½]
         isFacingRight = !isFacingRight;
         float rotationY = isFacingRight ? 0 : 180;
         transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 
-    // –Â‚«ˆ—
+    // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
     private void Meow()
     {
+        Debug.Log("ï¿½Lï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½I");
 
-        // –Â‚«º‚Ì“–‚½‚è”»’è‚ğ”­¶‚³‚¹‚é (SphereCast‚Å”ÍˆÍ‚ğw’è)
+        // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ğ”­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (SphereCastï¿½Å”ÍˆÍ‚ï¿½ï¿½wï¿½ï¿½)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
-        // ”ÍˆÍ“à‚ÌƒIƒuƒWƒFƒNƒg‚ğƒnƒCƒ‰ƒCƒg
+        // ï¿½ÍˆÍ“ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½nï¿½Cï¿½ï¿½ï¿½Cï¿½g
         foreach (Collider hitCollider in hitColliders)
         {
             Renderer objRenderer = hitCollider.GetComponent<Renderer>();
             if (objRenderer != null)
             {
-                // “®‚­ƒIƒuƒWƒFƒNƒg‚ğ“®‚©‚·ˆ—‚ğ’Ç‰Á
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
                 MeowMove moveableObject = hitCollider.GetComponent<MeowMove>();
                 if (moveableObject != null)
                 {
                     moveableObject.MoveUpAndDown();
                 }
+                // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÌFï¿½ï¿½Ô‚ï¿½ï¿½ÏXï¿½ï¿½ï¿½Äƒnï¿½Cï¿½ï¿½ï¿½Cï¿½g
+                objRenderer.material.color = Color.red;
+
+                // ï¿½ï¿½èï¿½ÔŒï¿½ÉFï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½n
+                StartCoroutine(ResetColor(objRenderer));
             }
         }
+    }
+    private void Flip()
+    {
+        // å·¦å³åè»¢ã™ã‚‹ãŸã‚ã«Yè»¸æ–¹å‘ã«å›è»¢
+        isFacingRight = !isFacingRight;
+        float rotationY = isFacingRight ? 0 : 180;
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
+    }
+
+    // ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½)
+    private IEnumerator ResetColor(Renderer objRenderer)
+    {
+        yield return new WaitForSeconds(1f); // 1ï¿½bï¿½ï¿½ÉFï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
+        objRenderer.material.color = Color.white; // ï¿½ï¿½ï¿½ÌFï¿½É–ß‚ï¿½
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -110,6 +166,9 @@ public class CatMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+
+            // Boolå‹ã®Animatorã§ã‚ã‚‹Jampã‚’Trueã«ã™ã‚‹
+            animator.SetBool("Jamp", false);
         }
 
         if (collision.gameObject.CompareTag("Pickupable"))
@@ -119,24 +178,24 @@ public class CatMovement : MonoBehaviour
 
     }
 
-    // ƒIƒuƒWƒFƒNƒg‚ğ‚¿ã‚°‚éˆ—
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½éˆï¿½ï¿½
     private void PickupObject(GameObject obj)
     {
         pickedObject = obj;
 
-        // Rigidbody‚Ìİ’è•ÏX
+        // Rigidbodyï¿½Ìİ’ï¿½ÏX
         Rigidbody objRb = pickedObject.GetComponent<Rigidbody>();
         if (objRb != null)
         {
-            objRb.isKinematic = true; // •¨—‰‰Z‚ğ–³Œø‚É‚µ‚Ä‚¿ã‚°‚ç‚ê‚é‚æ‚¤‚É‚·‚é
+            objRb.isKinematic = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ğ–³Œï¿½ï¿½É‚ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
         }
 
-        // ƒIƒuƒWƒFƒNƒg‚ğƒvƒŒƒCƒ„[‚Ìw’è‚ÌˆÊ’u‚É‚Á‚Ä‚­‚é
+        // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìwï¿½ï¿½ÌˆÊ’uï¿½Éï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
         pickedObject.transform.position = holdPoint.position;
         pickedObject.transform.parent = holdPoint;
     }
 
-    // ƒIƒuƒWƒFƒNƒg‚ğ•ú‚·ˆ—
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void DropObject()
     {
         if (pickedObject != null)
@@ -144,19 +203,21 @@ public class CatMovement : MonoBehaviour
             Rigidbody objRb = pickedObject.GetComponent<Rigidbody>();
             if (objRb != null)
             {
-                objRb.isKinematic = false; // •¨—‰‰Z‚ğÄ“x—LŒø‚É‚·‚é
+                objRb.isKinematic = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½Ä“xï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
             }
 
-            // eƒIƒuƒWƒFƒNƒg‚©‚çŠO‚·
+            // ï¿½eï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½
             pickedObject.transform.parent = null;
             pickedObject = null;
         }
     }
 
-    // Gizmos‚Å–Â‚«º‚Ì”ÍˆÍ‚ğ‹Šo“I‚É•\¦
+    // Gizmosï¿½Å–Â‚ï¿½ï¿½ï¿½ï¿½Ì”ÍˆÍ‚ï¿½ï¿½ï¿½ï¿½oï¿½Iï¿½É•\ï¿½ï¿½
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, meowRadius);
     }
+}
+
 }

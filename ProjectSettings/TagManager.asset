@@ -8,6 +8,8 @@ TagManager:
   - Pickupable
   - holdPoint
   - Water
+  - Invizible
+  - ICE
   layers:
   - Default
   - TransparentFX
