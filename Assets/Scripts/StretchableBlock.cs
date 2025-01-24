@@ -53,7 +53,7 @@ public class StretchableBlock : MonoBehaviour
     {
         isStretching = false;
         transform.localScale = originalScale;// ���̃X�P�[���ɖ߂�
-    }
+
 
         if (isMoving)
         {
@@ -63,6 +63,7 @@ public class StretchableBlock : MonoBehaviour
             newPosition.y = 0 + Mathf.PingPong(elapsedTime * moveSpeed, moveHeight); // y=0����Ɉړ�
             transform.position = newPosition;
         }
+    }
     
 
     // �㉺�ړ����J�n�i�x������j
