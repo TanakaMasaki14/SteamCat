@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class CatMovement : MonoBehaviour
 {
-    public float moveSpeed = 0f;   // �ړ����x
-    public float jumpForce = 0f;   // �W�����v��
-    private bool isJumping = false; // �W�����v���Ă��邩�ǂ���
-    private Rigidbody rb;           // Rigidbody�R���|�[�l���g
-    private bool isFacingRight = true; // ���݉E�������ǂ���
+    public float moveSpeed = 0f;   // 移動速度
+    public float jumpForce = 0f;   // ジャンプ力
+    private bool isJumping = false; // ジャンプ中かどうか
+    private Rigidbody rb;           // Rigidbodyコンポーネント
+    private bool isFacingRight = true; // 現在右向きかどうか
 
-    // ������p
-    public float meowRadius = 2f; // �����̓����蔻��͈̔�
-    public LayerMask meowLayerMask; // �������e����^���郌�C���[
+    // 鳴き声用
+    public float meowRadius = 2f; // 鳴き声の影響範囲の半径
+    public LayerMask meowLayerMask; // 鳴き声が影響するオブジェクトのレイヤー
 
-    // �I�u�W�F�N�g�������グ�邽�߂̐ݒ�
-    public Transform holdPoint;   // �I�u�W�F�N�g�����ʒu
-    private GameObject pickedObject;  // �����グ���I�u�W�F�N�g
+    // オブジェクトを持ち上げるための設定
+    public Transform holdPoint;   // オブジェクトを持つ位置
+    private GameObject pickedObject;  // 現在持っているオブジェクト
 
-    private Animator animator; // Animatorをanimatorという変数で定義する
+    private Animator animator; // Animatorコンポーネント
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();  // Rigidbody���擾
-        
-        // 変数walkAnimeに、Animetorコンポーネントを設定する
+        rb = GetComponent<Rigidbody>();  // Rigidbodyの取得
+
+        // Animatorコンポーネントを取得
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // �v���C���[��Z���ړ� (A��D�L�[�܂��͍��E�E���L�[)
-        float moveInput = Input.GetAxis("Horizontal");  // "A"��"D"�܂��͍��E�E�L�[�ňړ�
-        Vector3 move = new Vector3(rb.velocity.x, rb.velocity.y, moveInput * moveSpeed);  // Z���Ɉړ�
+        // プレイヤー入力による移動 (AとDキーまたは←→キー)
+        float moveInput = Input.GetAxis("Horizontal");  // "A"や"D"キーで移動
+        Vector3 move = new Vector3(rb.velocity.x, rb.velocity.y, moveInput * moveSpeed);  // Z軸方向に移動
 
         rb.velocity = move;
 
-        // ��]�̏�����ǉ�
+        // 向きの変更を追加
         if (moveInput < 0 && isFacingRight)
         {
             Flip();
@@ -46,30 +46,25 @@ public class CatMovement : MonoBehaviour
             Flip();
         }
 
-        // �W�����v����
-        // �W�����v����
+        // スペースキーが押されたら遅延ジャンプを実行
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
-            rb.velocity = Vector3.up * jumpForce;
-            isJumping = true;
-
-            // Bool型のAnimatorであるJampをTrueにする
-            animator.SetBool("Jamp", true);
+            StartCoroutine(DelayedJump());
         }
 
-        // ������
+        // 鳴き声
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Meow();
         }
 
-        // �I�u�W�F�N�g�������グ��E��������
+        // オブジェクトを持つ・離す
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (pickedObject == null) // ���������Ă��Ȃ��ꍇ
+            if (pickedObject == null) // 何も持っていない場合
             {
                 RaycastHit hit;
-                // �v���C���[�̑O���ɂ���I�u�W�F�N�g��Raycast�Ō��o
+                // プレイヤーの前方にあるオブジェクトをRaycastで検出
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
                 {
                     if (hit.collider.CompareTag("Pickupable"))
@@ -78,7 +73,7 @@ public class CatMovement : MonoBehaviour
                     }
                 }
             }
-            else // ���łɎ����Ă���ꍇ�͕���
+            else // すでに持っている場合は離す
             {
                 DropObject();
             }
@@ -95,58 +90,64 @@ public class CatMovement : MonoBehaviour
             // Bool型のパラメータであるWalkをFalseにする
             animator.SetBool("Walk", false);
         }
+    }
 
-        // 回転の処理を追加(回転で左右の向きを変更)
-        if (moveInput < 0 && isFacingRight)
+    // 0.5秒後にジャンプするコルーチン
+    private IEnumerator DelayedJump()
+    {
+        yield return new WaitForSeconds(0.2f); // 0.2秒待つ
+
+        if (!isJumping) // まだジャンプしていない場合のみ実行
         {
-            Flip();
-        }
-        else if(moveInput > 0 && !isFacingRight)
-        {
-            Flip();
+            rb.velocity = Vector3.up * jumpForce;
+            isJumping = true;
+
+            // Bool型のAnimatorであるJampをTrueにする
+            animator.SetBool("Jamp", true);
         }
     }
+
     private void Flip()
     {
-        // ���E���]���邽�߂�Y�������ɉ�]
+        // 左右反転するためにY軸方向に回転
         isFacingRight = !isFacingRight;
         float rotationY = isFacingRight ? 0 : 180;
         transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 
-    // ������
+    // 鳴き声
     private void Meow()
     {
-        Debug.Log("�L�������I");
+        Debug.Log("猫が鳴いた！");
 
-        // �����̓����蔻��𔭐������� (SphereCast�Ŕ͈͂��w��)
+        // 鳴き声の影響範囲を計算 (SphereCastで範囲を指定)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, meowRadius, meowLayerMask);
-        // �͈͓��̃I�u�W�F�N�g���n�C���C�g
+        // 範囲内のオブジェクトをハイライト
         foreach (Collider hitCollider in hitColliders)
         {
             Renderer objRenderer = hitCollider.GetComponent<Renderer>();
             if (objRenderer != null)
             {
-                // �����I�u�W�F�N�g�𓮂���������ǉ�
+                // 動くオブジェクトを動かす
                 MeowMove moveableObject = hitCollider.GetComponent<MeowMove>();
                 if (moveableObject != null)
                 {
                     moveableObject.MoveUpAndDown();
                 }
-                // �I�u�W�F�N�g�̐F��Ԃ��ύX���ăn�C���C�g
+                // オブジェクトの色を赤に変更してハイライト
                 objRenderer.material.color = Color.red;
 
-                // ��莞�Ԍ�ɐF�����ɖ߂��R���[�`�����J�n
+                // 一定時間後に元の色に戻す
                 StartCoroutine(ResetColor(objRenderer));
             }
         }
     }
 
-    // �F�����ɖ߂����� (�R���[�`��)
+    // 色を元に戻す (コルーチン)
     private IEnumerator ResetColor(Renderer objRenderer)
     {
-        yield return new WaitForSeconds(1f); // 1�b��ɐF�����ɖ߂�
-        objRenderer.material.color = Color.white; // ���̐F�ɖ߂�
+        yield return new WaitForSeconds(1f); // 1秒後に色を元に戻す
+        objRenderer.material.color = Color.white; // 元の色に戻す
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -155,7 +156,7 @@ public class CatMovement : MonoBehaviour
         {
             isJumping = false;
 
-            // Bool型のAnimatorであるJampをTrueにする
+            // Bool型のAnimatorであるJampをFalseにする
             animator.SetBool("Jamp", false);
         }
 
@@ -163,27 +164,26 @@ public class CatMovement : MonoBehaviour
         {
             isJumping = false;
         }
-
     }
 
-    // �I�u�W�F�N�g�������グ�鏈��
+    // オブジェクトを持ち上げる
     private void PickupObject(GameObject obj)
     {
         pickedObject = obj;
 
-        // Rigidbody�̐ݒ�ύX
+        // Rigidbodyの設定変更
         Rigidbody objRb = pickedObject.GetComponent<Rigidbody>();
         if (objRb != null)
         {
-            objRb.isKinematic = true; // �������Z�𖳌��ɂ��Ď����グ����悤�ɂ���
+            objRb.isKinematic = true; // 物理演算を無効化して持ち上げる
         }
 
-        // �I�u�W�F�N�g���v���C���[�̎w��̈ʒu�Ɏ����Ă���
+        // オブジェクトをプレイヤーの指定位置に配置
         pickedObject.transform.position = holdPoint.position;
         pickedObject.transform.parent = holdPoint;
     }
 
-    // �I�u�W�F�N�g���������
+    // オブジェクトを離す
     private void DropObject()
     {
         if (pickedObject != null)
@@ -191,16 +191,16 @@ public class CatMovement : MonoBehaviour
             Rigidbody objRb = pickedObject.GetComponent<Rigidbody>();
             if (objRb != null)
             {
-                objRb.isKinematic = false; // �������Z���ēx�L���ɂ���
+                objRb.isKinematic = false; // 物理演算を再度有効化
             }
 
-            // �e�I�u�W�F�N�g����O��
+            // オブジェクトをリリース
             pickedObject.transform.parent = null;
             pickedObject = null;
         }
     }
 
-    // Gizmos�Ŗ����͈̔͂����o�I�ɕ\��
+    // Gizmosで鳴き声の範囲を可視化
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
