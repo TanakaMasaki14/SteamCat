@@ -1,49 +1,59 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public Vector3 openOffset; // 開くときの位置の変化量 (相対的な座標)
-    public float moveTime = 5.0f; // 扉が開く・閉じるのにかかる時間
-    public float waitTime = 3.0f; // 扉が開いた後に待つ時間
+    public Vector3 openOffset; // 扉が開くときの移動量
+    public float moveTime = 2.0f; // 扉が開閉にかかる時間
+    public float waitTime = 3.0f; // 扉が開いたまま待機する時間
+    public float cooldownTime = 2.0f; // 扉のループ間のクールタイム
 
     private Vector3 closedPosition; // 扉が閉じているときの位置
     private Vector3 openPosition;   // 扉が開いているときの位置
     private bool isMoving = false;  // 扉が現在動いているかどうか
+    private bool isTriggered = false; // 扉の動作をループするトリガー
 
     void Start()
     {
-        // 初期位置を閉じた状態として保存
+        // 扉の閉じた位置を初期状態として保存
         closedPosition = transform.position;
-        openPosition = closedPosition + openOffset; // 開いた状態の位置を計算
+        openPosition = closedPosition + openOffset; // 開いた位置を計算
     }
 
-    public void OpenDoor()
+    void Update()
     {
-        if (!isMoving) // すでに動作中でない場合のみ
+        // 永続動作トリガーが有効で、動作中でない場合に動作を開始
+        if (isTriggered && !isMoving)
         {
-            StartCoroutine(OpenAndCloseDoor());
+            StartCoroutine(OpenCloseLoop());
         }
     }
 
-    private System.Collections.IEnumerator OpenAndCloseDoor()
+    public void StartLoop()
     {
-        isMoving = true; // 扉が動作中であることを記録
+        isTriggered = true; // 永続動作を開始
+    }
+
+    private IEnumerator OpenCloseLoop()
+    {
+        isMoving = true;
 
         // 扉を開く
         yield return MoveDoor(closedPosition, openPosition);
 
-        // 指定した時間待機
+        // 開いた状態で一定時間待機
         yield return new WaitForSeconds(waitTime);
 
         // 扉を閉じる
         yield return MoveDoor(openPosition, closedPosition);
 
-        isMoving = false; // 扉の動作が完了
+        // クールタイムの待機
+        yield return new WaitForSeconds(cooldownTime);
+
+        isMoving = false;
     }
 
-    private System.Collections.IEnumerator MoveDoor(Vector3 fromPosition, Vector3 toPosition)
+    private IEnumerator MoveDoor(Vector3 fromPosition, Vector3 toPosition)
     {
         float elapsedTime = 0;
 

@@ -21,17 +21,23 @@ public class IceCollisionHandler2 : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        // "Invizible2"タグに対する処理（扉の動作）
+        // "Invizible2"タグとの衝突を検知
         if (collision.gameObject.CompareTag("Invizible2"))
         {
+            Debug.Log("Invizible2に衝突しました！");
+
+            // Door1とDoor2のスクリプトを取得して動作を開始
             DoorController door1Controller = door1.GetComponent<DoorController>();
             DoorController door2Controller = door2.GetComponent<DoorController>();
 
-            if (door1Controller != null && door2Controller != null)
+            if (door1Controller != null)
             {
-                // Door1とDoor2を開く動作を開始
-                door1Controller.OpenDoor();
-                door2Controller.OpenDoor();
+                door1Controller.StartLoop(); // 永続的な動作を開始
+            }
+
+            if (door2Controller != null)
+            {
+                door2Controller.StartLoop(); // 永続的な動作を開始
             }
         }
     }
