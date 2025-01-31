@@ -4,31 +4,54 @@ using UnityEngine;
 
 public class WallController : MonoBehaviour
 {
-    public float riseSpeed = 2f;// ï¿½Ç‚Ìã¸ï¿½ï¿½ï¿½x
-    public float targetHeight = 5f;// ï¿½Ç‚ÌÅIï¿½Iï¿½Èï¿½ï¿½ï¿½
+    public float riseSpeed = 2f; // •Ç‚Ìã¸‘¬“x
+    public float loweringSpeed = 2f; // •Ç‚Ì‰º~‘¬“x
+    public float targetHeight = 5f; // •Ç‚ÌÅ‘å‚Ì‚‚³
+    public float minHeight = 0f; // •Ç‚ÌÅ¬‚Ì‚‚³
     private bool isRising = false;
+    private bool isLowering = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (isRising)
         {
-            // ï¿½Ç‚ï¿½ï¿½wï¿½è‚³ï¿½ê‚½ï¿½ï¿½ï¿½ï¿½ï¿½É’Bï¿½ï¿½ï¿½ï¿½Ü‚Åã¸ï¿½ï¿½ï¿½ï¿½
+            // •Ç‚ªw’è‚³‚ê‚½‚‚³‚É’B‚·‚é‚Ü‚Åã¸‚·‚é
             if (transform.position.y < targetHeight)
             {
                 transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+            }
+            else
+            {
+                // ã¸‚µ‰ß‚¬‚½ê‡‚ÉˆÊ’u‚ğŒÅ’è
+                transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
+                isRising = false; // ã¸‚ğ’â~
+            }
+        }
+        else if (isLowering)
+        {
+            // •Ç‚ªÅ¬‚Ì‚‚³‚Ü‚Å‰º~‚·‚é
+            if (transform.position.y > minHeight)
+            {
+                transform.position -= Vector3.up * loweringSpeed * Time.deltaTime;
+            }
+            else
+            {
+                // ‰º~‚µ‰ß‚¬‚½ê‡‚ÉˆÊ’u‚ğŒÅ’è
+                transform.position = new Vector3(transform.position.x, minHeight, transform.position.z);
+                isLowering = false; // ‰º~‚ğ’â~
             }
         }
     }
 
     public void StartRising()
     {
-        isRising = true;// ï¿½ã¸ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
+        isRising = true; // ã¸‚ğŠJn‚·‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        isLowering = false; // ‰º~‚ğ’â~‚·‚é
+    }
+
+    public void StartLowering()
+    {
+        isLowering = true; // ‰º~‚ğŠJn‚·‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        isRising = false; // ã¸‚ğ’â~‚·‚é
     }
 }

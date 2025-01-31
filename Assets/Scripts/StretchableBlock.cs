@@ -4,29 +4,22 @@ using UnityEngine;
 
 public class StretchableBlock : MonoBehaviour
 {
-    public float stretchFactor = 0.5f; // ï¿½Lï¿½Ñkï¿½İ‚ï¿½ï¿½é‹­ï¿½x
-    public float recoverySpeed = 2f; // ï¿½ï¿½ï¿½É–ß‚é‘¬ï¿½x
-    private Vector3 originalScale; // ï¿½ï¿½ï¿½ÌƒXï¿½Pï¿½[ï¿½ï¿½
+    public float stretchFactor = 0.5f; // L‚Ñk‚İ‚·‚é‹­“x
+    public float recoverySpeed = 2f; // Œ³‚É–ß‚é‘¬“x
+    private Vector3 originalScale; // Œ³‚ÌƒXƒP[ƒ‹
     private Rigidbody rb;
-    private bool isStretching = false;// ï¿½Lï¿½Ñkï¿½İ‚ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
-    public float moveHeight = 0.5f; // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½Ìï¿½ï¿½ï¿½
-    public float moveSpeed = 2f; // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½Ì‘ï¿½ï¿½x
-    private Vector3 originalPosition; // ï¿½ï¿½ï¿½ÌˆÊ’u
-    private bool isMoving = false; // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
-    private float startTime; // ï¿½Ú“ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ÌŠî€ï¿½ï¿½ï¿½ï¿½
+    private bool isStretching = false;// L‚Ñk‚İ‚ğ—LŒø‚É‚·‚éƒtƒ‰ƒO
 
     // Start is called before the first frame update
     void Start()
     {
-        originalScale = transform.localScale;// ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Pï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½^
+        originalScale = transform.localScale;// ‰ŠúƒXƒP[ƒ‹‚ğ‹L˜^
         rb = GetComponent<Rigidbody>();
 
         if (rb != null )
         {
             rb.isKinematic = true;
         }  
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½ï¿½Lï¿½^
-        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -34,7 +27,7 @@ public class StretchableBlock : MonoBehaviour
     {
         if(isStretching)
         {
-            // ï¿½ï¿½ÉLï¿½Ñkï¿½İ‚ï¿½ï¿½ï¿½Xï¿½Pï¿½[ï¿½ï¿½ï¿½ï¿½Kï¿½p
+            // í‚ÉL‚Ñk‚İ‚·‚éƒXƒP[ƒ‹‚ğ“K—p
             Vector3 stretchScale = originalScale;
             float newScaleY = originalScale.y + Mathf.PingPong(Time.time * recoverySpeed, stretchFactor);
             stretchScale.y = newScaleY;
@@ -42,52 +35,16 @@ public class StretchableBlock : MonoBehaviour
         }
     }
 
-    // ï¿½Lï¿½Ñkï¿½İ‚ï¿½ï¿½Jï¿½n
+    // L‚Ñk‚İ‚ğŠJn
     public void StartStretching()
     {
         isStretching = true;
     }
 
-    // ï¿½Lï¿½Ñkï¿½İ‚ï¿½ï¿½~
+    // L‚Ñk‚İ‚ğ’â~
     public void StopStretching()
     {
         isStretching = false;
-        transform.localScale = originalScale;// ï¿½ï¿½ï¿½ÌƒXï¿½Pï¿½[ï¿½ï¿½ï¿½É–ß‚ï¿½
-
-
-        if (isMoving)
-        {
-            // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½ï¿½vï¿½Zï¿½iï¿½ï¿½ï¿½Ô‚ÌŠî€ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½j
-            Vector3 newPosition = originalPosition;
-            float elapsedTime = Time.time - startTime; // ï¿½Jï¿½nï¿½ï¿½ï¿½Ô‚ï¿½ï¿½î€ï¿½É‚ï¿½ï¿½ï¿½ï¿½oï¿½ßï¿½ï¿½ï¿½
-            newPosition.y = 0 + Mathf.PingPong(elapsedTime * moveSpeed, moveHeight); // y=0ï¿½ï¿½ï¿½î€ï¿½ÉˆÚ“ï¿½
-            transform.position = newPosition;
-        }
-    }
-    
-
-    // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½ï¿½ï¿½Jï¿½nï¿½iï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
-    public void StartMovingWithDelay(float delay)
-    {
-        StartCoroutine(StartMovingAfterDelay(delay));
-    }
-
-    // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½ï¿½ï¿½~
-    public void StopMoving()
-    {
-        isMoving = false;
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z); // y=0ï¿½Éƒï¿½ï¿½Zï¿½bï¿½g
-    }
-
-    // ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½Å’xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    private IEnumerator StartMovingAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay); // ï¿½wï¿½ï¿½bï¿½ï¿½ï¿½Ò‹@
-
-        // ï¿½Ú“ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ÌŠî€ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Lï¿½^
-        startTime = Time.time;
-
-        // ï¿½ã‰ºï¿½Ú“ï¿½ï¿½ï¿½ï¿½Jï¿½n
-        isMoving = true;
+        transform.localScale = originalScale;// Œ³‚ÌƒXƒP[ƒ‹‚É–ß‚·
     }
 }
