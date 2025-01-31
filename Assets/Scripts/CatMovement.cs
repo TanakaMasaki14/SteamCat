@@ -64,6 +64,12 @@ public class CatMovement : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Pickupable"))
                     {
+                        Debug.Log("ICE");
+                        PickupObject(hit.collider.gameObject);
+                    }
+                    if(hit.collider.CompareTag("Box"))
+                    {
+                        Debug.Log("Box");
                         PickupObject(hit.collider.gameObject);
                     }
                 }
