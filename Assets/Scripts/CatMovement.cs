@@ -44,7 +44,7 @@ public class CatMovement : MonoBehaviour
             isJumping = true;
 
             // BoolŒ^‚ÌAnimator‚Å‚ ‚éJamp‚ðTrue‚É‚·‚é
-            animator.SetBool("Jamp", true);
+            animator.SetBool("Jump", true);
         }
 
         // 
@@ -144,7 +144,7 @@ public class CatMovement : MonoBehaviour
             isJumping = false;
 
             // BoolŒ^‚ÌAnimator‚Å‚ ‚éJamp‚ðTrue‚É‚·‚é
-            animator.SetBool("Jamp", false);
+            animator.SetBool("Jump", false);
         }
 
         if (collision.gameObject.CompareTag("Pickupable"))
