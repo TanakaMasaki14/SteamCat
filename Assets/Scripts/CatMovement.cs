@@ -95,7 +95,7 @@ public class CatMovement : MonoBehaviour
     // 0.5秒後にジャンプするコルーチン
     private IEnumerator DelayedJump()
     {
-        yield return new WaitForSeconds(0.2f); // 0.2秒待つ
+        yield return new WaitForSeconds(0.3f); // 0.3秒待つ
 
         if (!isJumping) // まだジャンプしていない場合のみ実行
         {
