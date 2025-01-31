@@ -103,18 +103,39 @@ namespace Prime31.TransitionKit
 
 		void initialize()
 		{
-			// create the MeshFilter
-			var meshFilter = getOrAddComponent<MeshFilter>();
-			meshFilter.mesh = _transitionKitDelegate.meshForDisplay() ?? generateQuadMesh();
+            //// create the MeshFilter
+            //var meshFilter = getOrAddComponent<MeshFilter>();
+            //meshFilter.mesh = _transitionKitDelegate.meshForDisplay() ?? generateQuadMesh();
 
-			// create the Material
-			material = getOrAddComponent<MeshRenderer>().material;
-			material.shader = _transitionKitDelegate.shaderForTransition() ?? Shader.Find( "prime[31]/Transitions/Texture With Alpha" );
-			material.color = Color.white; // reset to fully white
+            //// create the Material
+            //material = getOrAddComponent<MeshRenderer>().material;
+            //material.shader = _transitionKitDelegate.shaderForTransition() ?? Shader.Find( "prime[31]/Transitions/shadersTexture With Alpha" );
+            //material.color = Color.white; // reset to fully white
 
-			// snapshot the main camera before proceeding
-			_instance.StartCoroutine( _instance.setupCameraAndTexture() );
-		}
+            //// snapshot the main camera before proceeding
+            //_instance.StartCoroutine( _instance.setupCameraAndTexture() );
+
+            Debug.Log("TransitionKit 初期化開始");
+
+            // create the MeshFilter
+            var meshFilter = getOrAddComponent<MeshFilter>();
+            meshFilter.mesh = _transitionKitDelegate.meshForDisplay() ?? generateQuadMesh();
+
+            // create the Material
+            material = getOrAddComponent<MeshRenderer>().material;
+            material.shader = _transitionKitDelegate.shaderForTransition() ?? Shader.Find("prime[31]/Transitions/Texture With Alpha");
+
+            if (material.shader == null)
+            {
+                Debug.LogError("シェーダーが見つかりません。デフォルトのシェーダーを割り当てます。");
+                material.shader = Shader.Find("Unlit/Texture");
+            }
+
+            material.color = Color.white; // reset to fully white
+
+            Debug.Log("TransitionKit 初期化完了");
+            _instance.StartCoroutine(_instance.setupCameraAndTexture());
+        }
 
 
 		Mesh generateQuadMesh()
@@ -269,7 +290,10 @@ namespace Prime31.TransitionKit
 			{
 				elapsed += deltaTime;
 				var step = Mathf.Lerp( start, end, Mathf.Pow( elapsed / duration, 2f ) );
-				material.SetFloat( "_Progress", step );
+                Debug.Log($"トランジション進行状況: {step}");
+
+
+                material.SetFloat( "_Progress", step );
 
 				yield return null;
 			}

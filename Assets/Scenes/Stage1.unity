@@ -5974,7 +5974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: 6852f85c0bc87284d888eafa4cd7c697, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.94
+      value: 49.78
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 6852f85c0bc87284d888eafa4cd7c697, type: 3}
       propertyPath: m_TagString
@@ -5999,8 +5999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dcbc71833d157949ac338f680d491b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {x: 0, y: 1.92, z: 100}
-  pointB: {x: 0, y: 1.92, z: 120}
+  pointA: {x: 0, y: 1.92, z: 180}
+  pointB: {x: 0, y: 1.92, z: 200}
   speed: 2
 --- !u!65 &188593350
 BoxCollider:
@@ -8356,7 +8356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721706239}
   m_LocalRotation: {x: 0.0010586239, y: -0.015448076, z: 0.0025882765, w: -0.9998768}
-  m_LocalPosition: {x: -0.5872624, y: 0.33541766, z: 0.92974806}
+  m_LocalPosition: {x: -0.03, y: 0.328, z: 0.722}
   m_LocalScale: {x: 0.019032395, y: 0.019032395, z: 0.01903239}
   m_Children: []
   m_Father: {fileID: 9282021}
@@ -17583,7 +17583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d13271d4ae568984b849aacd8ca54b09, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 59.4
+      value: 22.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d13271d4ae568984b849aacd8ca54b09, type: 3}
       propertyPath: m_LocalRotation.w

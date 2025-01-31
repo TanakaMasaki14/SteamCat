@@ -46,21 +46,59 @@ namespace Prime31.TransitionKit
 
 		public IEnumerator onScreenObscured( TransitionKit transitionKit )
 		{
-			transitionKit.transitionKitCamera.clearFlags = CameraClearFlags.Nothing;
+            //transitionKit.transitionKitCamera.clearFlags = CameraClearFlags.Nothing;
 
-			// set some material properties
-			transitionKit.material.SetFloat( "_Size", size );
-			transitionKit.material.SetFloat( "_WindVerticalSegments", windVerticalSegments );
+            //// set some material properties
+            //transitionKit.material.SetFloat( "_Size", size );
+            //transitionKit.material.SetFloat( "_WindVerticalSegments", windVerticalSegments );
 
-			// we dont transition back to the new scene unless it is loaded
-			if( nextScene >= 0 )
-			{
-				SceneManager.LoadSceneAsync( nextScene );
-				yield return transitionKit.StartCoroutine( transitionKit.waitForLevelToLoad( nextScene ) );
-			}
+            //// we dont transition back to the new scene unless it is loaded
+            //if( nextScene >= 0 )
+            //{
+            //	SceneManager.LoadSceneAsync( nextScene );
+            //	yield return transitionKit.StartCoroutine( transitionKit.waitForLevelToLoad( nextScene ) );
+            //}
 
-			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
-		}
+            //yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
+            Debug.Log("onScreenObscured が開始されました");
+
+            transitionKit.transitionKitCamera.clearFlags = CameraClearFlags.Nothing;
+
+            transitionKit.material.SetFloat("_Size", size);
+            transitionKit.material.SetFloat("_WindVerticalSegments", windVerticalSegments);
+
+            if (nextScene >= 0)
+            {
+                Debug.Log($"次のシーンのインデックス: {nextScene}");
+                var asyncOperation = SceneManager.LoadSceneAsync(nextScene);
+                if (asyncOperation == null)
+                {
+                    Debug.LogError($"シーンの非同期ロードに失敗しました。nextScene: {nextScene}");
+                }
+                else
+                {
+                    Debug.Log("シーンの非同期ロードを開始しました...");
+
+                    asyncOperation.allowSceneActivation = true;
+
+                    while (!asyncOperation.isDone)
+                    {
+                        Debug.Log($"ロード進行中: {asyncOperation.progress} (allowSceneActivation: {asyncOperation.allowSceneActivation}, isDone: {asyncOperation.isDone})");
+                        yield return null;
+                    }
+                    Debug.Log("シーンの非同期ロードが完了しました。");
+                }
+
+                Debug.Log("waitForLevelToLoad を開始します");
+                yield return transitionKit.StartCoroutine(transitionKit.waitForLevelToLoad(nextScene));
+                Debug.Log("waitForLevelToLoad が完了しました");
+            }
+
+            Debug.Log("tickProgressPropertyInMaterial を呼び出します");
+            yield return transitionKit.StartCoroutine(transitionKit.tickProgressPropertyInMaterial(duration));
+
+            Debug.Log("onScreenObscured が終了しました");
+        }
 
 		#endregion
 

@@ -1871,8 +1871,7 @@ GameObject:
   - component: {fileID: 1633539096}
   - component: {fileID: 1633539095}
   - component: {fileID: 1633539094}
-  - component: {fileID: 1633539097}
-  - component: {fileID: 1633539098}
+  - component: {fileID: 1633539099}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1945,7 +1944,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1633539097
+--- !u!114 &1633539099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1954,25 +1953,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1633539093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1bf2eaf6b545dd48b00bac852c5706e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e3b95ad67f45e14da74cd89cdc21228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Story
---- !u!114 &1633539098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633539093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91457621d0af748059f9b09bf41768f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionKitCamera: {fileID: 1633539095}
-  material: {fileID: 0}
-  useUnscaledDeltaTime: 0
+  maskTexture: {fileID: 0}
+  TITLE: Title
+  STORY: Story
+  GAME: Stage1
 --- !u!1 &1643722514
 GameObject:
   m_ObjectHideFlags: 0
