@@ -4,8 +4,23 @@ ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -1364854192830360089
-    second: Cat|Cat_Walk
+      74: 6685279470552383840
+    second: Cat|Cat_Idol
+  - first:
+      74: 5448920903382421397
+    second: Cat|Cat_Idol2
+  - first:
+      74: 6659371763743315093
+    second: Cat|Cat_Idol3
+  - first:
+      74: 8276057014352455912
+    second: Cat|Cat_Jamp
+  - first:
+      74: -3043758750550604427
+    second: Cat|Cat_PickUP
+  - first:
+      74: 5819267713937800378
+    second: Cat|Cat_Run
   externalObjects: {}
   materials:
     materialImportMode: 2
