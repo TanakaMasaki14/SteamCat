@@ -63770,6 +63770,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6378612584863545878, guid: 9f476569253dfa4488b9d8c00f0db143, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f476569253dfa4488b9d8c00f0db143, type: 3}
       propertyPath: m_Name
       value: Cat
@@ -63779,6 +63783,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f476569253dfa4488b9d8c00f0db143, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180640845926911598, guid: 9f476569253dfa4488b9d8c00f0db143, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
