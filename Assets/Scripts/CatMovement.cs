@@ -20,9 +20,14 @@ public class CatMovement : MonoBehaviour
 
     private bool isFacingRight = true;// 現在右向きかどうか
 
+    private Animator animator; // Animatorをanimatorという変数で定義する
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();  // 
+
+        // 変数walkAnimeに、Animetorコンポーネントを設定する
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -37,6 +42,9 @@ public class CatMovement : MonoBehaviour
         {
             rb.velocity = Vector3.up * jumpForce;
             isJumping = true;
+
+            // Bool型のAnimatorであるJampをTrueにする
+            animator.SetBool("Jamp", true);
         }
 
         // 
@@ -69,6 +77,17 @@ public class CatMovement : MonoBehaviour
             {
                 DropObject();
             }
+        }
+        // アニメーションの切り替え
+        if (moveInput != 0)
+        {
+            // Bool型のパラメータであるWalkをTrueにする
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            // Bool型のパラメータであるWalkをFalseにする
+            animator.SetBool("Walk", false);
         }
 
         // 回転の処理を追加(回転で左右の向きを変更)
@@ -123,6 +142,9 @@ public class CatMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+
+            // Bool型のAnimatorであるJampをTrueにする
+            animator.SetBool("Jamp", false);
         }
 
         if (collision.gameObject.CompareTag("Pickupable"))
