@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    public bool moveType; // 往復するかの選択
     public Vector3 pointA;
     public Vector3 pointB;
     public float speed = 2.0f;
@@ -33,15 +34,18 @@ public class MovingPlatform : MonoBehaviour
     {
         if (!isActive) return; // ← 追加: アクティブになるまで動かない
 
-        if (movingToB)
+        if (moveType)
         {
-            transform.position = Vector3.MoveTowards(transform.position, pointB, speed * Time.deltaTime);
-            if (transform.position == pointB) movingToB = false;
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, pointA, speed * Time.deltaTime);
-            if (transform.position == pointA) movingToB = true;
+            if (movingToB)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, pointB, speed * Time.deltaTime);
+                if (transform.position == pointB) movingToB = false;
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, pointA, speed * Time.deltaTime);
+                if (transform.position == pointA) movingToB = true;
+            }
         }
     }
 
