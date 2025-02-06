@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +8,15 @@ public class MovingPlatform : MonoBehaviour
     public Vector3 pointB;
     public float speed = 2.0f;
     private bool movingToB = true;
+    private bool isActive = false; // â† è¿½åŠ : å‹•ä½œã‚¹ã‚¤ãƒƒãƒ
 
-    // ƒvƒŒƒCƒ„[‚ğæ‚¹‚é‚½‚ß‚ÉAƒgƒŠƒK[ƒRƒ‰ƒCƒ_[‚ÅÚG‚ğŒŸ’m‚·‚é
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä¹—ã›ã‚‹ãŸã‚ã«ã€ãƒˆãƒªã‚¬ãƒ¼ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã§æ¥è§¦ã‚’æ¤œçŸ¥ã™ã‚‹
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log("Player landed on platform"); // ƒƒO’Ç‰Á
-            collision.transform.SetParent(transform); // ƒvƒŒƒCƒ„[‚ğ°‚Ìq‚Éİ’è
+            Debug.Log("Player landed on platform");
+            collision.transform.SetParent(transform);
         }
     }
 
@@ -23,30 +24,30 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log("Player left platform"); // ƒƒO’Ç‰Á
-            collision.transform.SetParent(null); // ƒvƒŒƒCƒ„[‚ğeqŠÖŒW‚©‚çŠO‚·
+            Debug.Log("Player left platform");
+            collision.transform.SetParent(null);
         }
     }
 
     void Update()
     {
+        if (!isActive) return; // â† è¿½åŠ : ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã‚‹ã¾ã§å‹•ã‹ãªã„
+
         if (movingToB)
         {
             transform.position = Vector3.MoveTowards(transform.position, pointB, speed * Time.deltaTime);
-
-            if (transform.position == pointB)
-            {
-                movingToB = false;
-            }
+            if (transform.position == pointB) movingToB = false;
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, pointA, speed * Time.deltaTime);
-
-            if (transform.position == pointA)
-            {
-                movingToB = true;
-            }
+            if (transform.position == pointA) movingToB = true;
         }
+    }
+
+    // ğŸ”¹ å¤–éƒ¨ã‹ã‚‰å‘¼ã³å‡ºã—ã¦å‹•ä½œé–‹å§‹ã™ã‚‹é–¢æ•°ã‚’è¿½åŠ 
+    public void StartMoving()
+    {
+        isActive = true;  // â† ãƒ‘ã‚ºãƒ«æˆåŠŸã§å‹•ä½œé–‹å§‹ï¼
     }
 }

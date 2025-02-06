@@ -4,28 +4,34 @@ using UnityEngine;
 
 public class PuzzleChecker : MonoBehaviour
 {
-    public BoxPlacement[] placements; // すべての配置ポイント
+    public BoxPlacement[] placements; // 3つの箱の配置場所
+    public MovingPlatform[] platforms; // 動かす足場（複数可）
+
+    private bool puzzleSolved = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // スペースキーでチェック
-        {
-            CheckSolution();
-        }
+        CheckSolution();
     }
 
     void CheckSolution()
     {
         foreach (var place in placements)
         {
-            if (place.gameObject.GetComponent<BoxPlacement>().placedBox == null)
+            if (place.placedBox == null || place.placedBox.name != place.correctBoxName)
             {
-                Debug.Log("すべての箱を配置してください！");
+                Debug.Log("まだ並んでいません！");
                 return;
             }
         }
 
-        Debug.Log("パズルクリア！");
-        // クリア処理（エフェクト・シーン遷移など）
+        Debug.Log("パズルクリア！ 足場が動きます！");
+        puzzleSolved = true;
+
+        // 足場を動かす
+        foreach (var platform in platforms)
+        {
+            platform.StartMoving();
+        }
     }
 }
