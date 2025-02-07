@@ -1,35 +1,20 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class BGM: MonoBehaviour
+public class BGM : MonoBehaviour
 {
-    public AudioSource bgmSource;
-    public string titleSceneName = "Title";
+    private static BGM instance;
 
-    void Start()
+    void Awake()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == titleSceneName)
+        // すでにインスタンスが存在する場合は、新しいものを破棄
+        if (instance != null)
         {
-            RestartBGM();
+            Destroy(gameObject);
+            return;
         }
-    }
 
-    void RestartBGM()
-    {
-        if (bgmSource != null)
-        {
-            bgmSource.Stop();
-            bgmSource.Play();
-        }
+        // インスタンスを設定し、シーンをまたいでも削除されないようにする
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

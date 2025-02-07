@@ -29,7 +29,7 @@ public class SceneManagement : MonoBehaviour
                 var wind = new WindTransition()
                 {
                     nextScene = NextScene,
-                    duration = 1.0f, // 演出の時間
+                    duration = 0.5f, // 演出の時間
                     size = 0.3f // 風の効果のサイズ
                 };
 
