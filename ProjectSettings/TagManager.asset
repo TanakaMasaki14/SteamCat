@@ -6,10 +6,20 @@ TagManager:
   tags:
   - Ground
   - Pickupable
+  - Pickupable2
   - holdPoint
   - Water
   - Invizible
+  - Trigger
+  - Ice
+  - Invizible
+  - Invizible2
   - ICE
+  - Red
+  - Yellow
+  - Blue
+  - Box
+  - Key
   layers:
   - Default
   - TransparentFX
