@@ -47,6 +47,14 @@ public class MovingPlatform : MonoBehaviour
                 if (transform.position == pointA) movingToB = true;
             }
         }
+        else
+        {
+            if (movingToB)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, pointB, speed * Time.deltaTime);
+                if (transform.position == pointB) movingToB = false;
+            }
+        }
     }
 
     // 🔹 外部から呼び出して動作開始する関数を追加
