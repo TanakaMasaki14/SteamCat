@@ -71,7 +71,11 @@ public class CatMovement : MonoBehaviour
                     {
                         PickupObject(hit.collider.gameObject);
                     }
-                    if(hit.collider.CompareTag("Key"))
+                    if (hit.collider.CompareTag("Box"))
+                    {
+                        PickupObject(hit.collider.gameObject);
+                    }
+                    if (hit.collider.CompareTag("Key"))
                     {
                         Debug.Log("Key");
                         PickupObject(hit.collider.gameObject);
@@ -100,7 +104,7 @@ public class CatMovement : MonoBehaviour
     // 0.5秒後にジャンプするコルーチン
     private IEnumerator DelayedJump()
     {
-        yield return new WaitForSeconds(0.3f); // 0.3秒待つ
+        yield return new WaitForSeconds(0.4f); // 0.4秒待つ
 
         if (!isJumping) // まだジャンプしていない場合のみ実行
         {
