@@ -72,6 +72,11 @@ public class CatMovement : MonoBehaviour
                         Debug.Log("Box");
                         PickupObject(hit.collider.gameObject);
                     }
+                    if(hit.collider.CompareTag("Key"))
+                    {
+                        Debug.Log("Key");
+                        PickupObject(hit.collider.gameObject);
+                    }
                 }
             }
             else // ���łɎ����Ă���ꍇ�͕���

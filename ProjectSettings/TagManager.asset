@@ -19,6 +19,7 @@ TagManager:
   - Yellow
   - Blue
   - Box
+  - Key
   layers:
   - Default
   - TransparentFX
