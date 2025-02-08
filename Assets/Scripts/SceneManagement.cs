@@ -23,9 +23,10 @@ public class SceneManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == TITLE)
         {
-            NextScene = 1;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                NextScene = 1;
                 var wind = new WindTransition()
                 {
                     nextScene = NextScene,
@@ -67,7 +68,7 @@ public class SceneManagement : MonoBehaviour
                     {
                         TransitionKit.instance.transitionWithDelegate(wind);
                     }
-                }  
+                }
 
             }
         }
